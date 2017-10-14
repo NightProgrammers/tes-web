@@ -170,6 +170,7 @@ module Tes
       ask, user = data[:ask], data[:user]
       get_domain(domain) do |server|
         ret = server.request_env(user, ask)
+        ret.merge!(domain: domain)
         if ret[:res].empty?
           json(success: false, data: ret)
         else

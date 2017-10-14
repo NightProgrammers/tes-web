@@ -1,0 +1,19 @@
+<div ng-controller="ResAll">
+    <div class="form-group">
+        <div class="input-group">
+            <div class="input-group-addon">环境池</div>
+            <select class="form-control"
+                    ng-model="activeDomain"
+                    ng-options="domain for domain in domainList"
+                    ng-change="fnSetDomain(activeDomain)">
+            </select>
+        </div>
+    </div>
+
+    <label>所有资源配置:</label>
+    <div class="editor" ng-jsoneditor="onLoad" ng-model="editor.data" options="editor.options"></div>
+    <button class="btn btn-success" ng-click="changeOptions()"><span class="glyphicon glyphicon-eye-open">Change View</span></button>
+</div>
+
+
+

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html ng-app="TES">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Test Env Service Manager</title>
+  <link rel="stylesheet" type="text/css" href="/libs/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/libs/bootstrap/dist/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="/libs/jsoneditor/dist/jsoneditor.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/layout.css">
+  <script src="/libs/ace-builds/src-min-noconflict/ace.js"></script>
+  <script src="/libs/jsoneditor/dist/jsoneditor.min.js"></script>
+  <script src="/libs/angular/angular.min.js"></script>
+  <script src="/libs/angular-ui-ace/ui-ace.min.js"></script>
+  <script src="/libs/ng-jsoneditor/ng-jsoneditor.js"></script>
+  <script src="/libs/angular-route/angular-route.min.js"></script>
+  <script src="/js/app.js"></script>
+  <script src="/js/factory.js"></script>
+  <script src="/js/controllers.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-fixed-top navbar-inverse bg-success">
+  <a class="navbar-brand" href="/">Test Env Manager</a>
+  <ul class="nav navbar-nav">
+    <li class="nav-item">
+      <a class="nav-link" href="#/res/list">资源列表</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#/res/all">所有资源</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#/res/add">加入资源</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="container">
+  <div class="tes-template">
+    <ng-view></ng-view>
+  </div>
+</div>
+
+<script src="/libs/jquery/dist/jquery.min.js"></script>
+<script src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

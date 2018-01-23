@@ -1,4 +1,4 @@
-FROM wuhuizuo/docker-ruby
+FROM wuhuizuo/ruby
 
 ADD ./ /app
 

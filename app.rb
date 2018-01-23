@@ -97,7 +97,18 @@ module Tes
       else
         json(success: false, error: {message: 'domain name should not be empty'})
       end
+    end
 
+    delete '/:domain' do |domain|
+      deal_block do
+        get_domain(domain) do |server|
+          server.resources.each{|k,_v| server.destroy_res(k)}
+          domain_dir = File.join(__dir__, 'conf', 'domains', domain)
+          FileUtils.rm_rf(domain_dir)
+          @@domains.delete(domain)
+          json(success: true)
+        end
+      end
     end
 
     get '/:domain/res' do |domain|

@@ -1,6 +1,7 @@
 require_relative 'spec_helper'
 
 describe Tes::App do
+  before(:all) { FileUtils.rm_rf(File.join(__dir__, '..', 'conf', 'domains')) }
   let(:domain) do
     name = 'zwh'
     put '/domains', name
@@ -23,6 +24,42 @@ describe Tes::App do
 
   def get_res_hash
     JSON.parse(last_response.body, :symbolize_names => true) rescue nil
+  end
+  
+  context 'DELETE /{domain}' do
+    let(:exists_domain) do
+      name = 'test_delete'
+      put '/domains', name
+      name
+    end
+    let(:res_in_exists_domain) do
+      res = {type: 'xxx', cfg: {xxx: 'xxx'}}
+      put "/#{exists_domain}/res", res.to_json
+      expect(last_response.status).to eq 200
+      ret = get_res_hash
+      ret && ret[:success] && ret[:data]
+    end
+    
+    it 'exists' do
+      res_in_exists_domain
+      
+      delete "/#{exists_domain}"
+      expect(last_response.status).to eq 200
+      ret = get_res_hash
+      ret && ret[:success]
+    end
+    it 'exists but some res is locked' do
+      post "/#{exists_domain}/res/#{res_in_exists_domain}/lock", {lock: 1, user: 'wuhuizuo'}
+      
+      delete "/#{exists_domain}"
+      ret = get_res_hash
+      expect(last_response.status).to eq 500
+      expect(ret[:error][:message]).to eq 'res to delete should not be occupied'
+    end
+    it 'not_exists' do
+      delete '/not_exist_domain'
+      expect(last_response.status).to eq 500
+    end
   end
 
   it 'PUT /{domain}/res' do

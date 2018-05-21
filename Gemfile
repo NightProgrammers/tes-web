@@ -6,7 +6,7 @@ gem 'thin'
 gem 'roo'
 gem 'net-ssh'
 gem 'net-sftp'
-gem 'tes-request', '>= 0.7'
+gem 'tes-request', '>= 0.9'
 
 group :test do
   gem 'rack-test'

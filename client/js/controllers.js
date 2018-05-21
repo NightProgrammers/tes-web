@@ -15,7 +15,18 @@ app.controller('ResList', ['$scope', 'ResFactory',
         $scope.fnUpdateResList = function (domain) {
             console.log('$scope.fnSetDomain');
             ResFactory.getResList(domain).success(function (data) {
-                $scope.resList = data.data;
+                $scope.resList = {};
+                if ($scope.searchPattern) {
+                    for (var resId in data.data) {
+                        if (JSON.stringify(data.data[resId]).search($scope.searchPattern) != -1) {
+                            $scope.resList[resId] =  data.data[resId]
+                        }
+                    }
+
+                }  else {
+                    $scope.resList = data.data;
+                }
+
             });
         };
         $scope.fnDelRes = function (domain, id) {
@@ -38,6 +49,7 @@ app.controller('ResList', ['$scope', 'ResFactory',
             // 'form', 'text', 'tree', 'view'
             $scope.editor.options.mode = $scope.editor.options.mode == 'tree' ? 'code' : 'tree';
         };
+        $scope.searchPattern = null;
         $scope.editor = {
             options: {
                 mode: 'tree'

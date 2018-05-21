@@ -1,33 +1,44 @@
-<div ng-controller="ResList">
-    <div class="form-group">
-        <div class="input-group">
-            <div class="input-group-addon">环境池</div>
-            <select class="form-control"
-                    ng-model="activeDomain"
-                    ng-options="domain for domain in domainList"
-                    ng-change="fnSetDomain(activeDomain)">
-            </select>
-        </div>
-        <div class="input-group">
-            <div class="input-group-addon">设备索引</div>
-            <select class="form-control"
-                    ng-model="activeResId"
-                    ng-options="id as (detail.type + ':\t' + id) for (id,detail) in resList"
-                    ng-change="fnSetResDetail(activeResId)">
-            </select>
+<div class="row" ng-controller="ResList">
+    <div class="col-sm-4">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></div>
+                <select class="form-control"
+                        ng-model="activeDomain"
+                        ng-options="domain for domain in domainList"
+                        ng-change="fnSetDomain(activeDomain)">
+                </select>
+            </div>
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+                <input class="form-control"
+                       ng-model="searchPattern"
+                       ng-change="fnUpdateResList(activeDomain)"/>
+            </div>
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-list"></span></div>
+                <select class="form-control"
+                        ng-model="activeResId"
+                        ng-options="id as (detail.type + ':\t' + id) for (id,detail) in resList"
+                        ng-change="fnSetResDetail(activeResId)">
+                </select>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="editor" ng-jsoneditor="onLoad" ng-model="editor.data" options="editor.options"></div>
+    <div class="col-sm-8">
+        <div class="form-group">
+            <div class="editor" ng-jsoneditor="onLoad" ng-model="editor.data" options="editor.options"></div>
+        </div>
+        <button class="btn btn-info">
+            <span class="glyphicon glyphicon-save"
+                  ng-click="fnEditRes(activeDomain, activeResId, editor.data)">Edit</span>
+        </button>
+        <button class="btn btn-danger" ng-click="fnDelRes(activeDomain, activeResId)">
+            <span class="glyphicon glyphicon-trash">delete</span>
+        </button>
+        <button class="btn btn-primary" ng-click="changeOptions()"><i class="fa fa-check-circle"></i> change options
+        </button>
     </div>
-    <button class="btn btn-info">
-        <span class="glyphicon glyphicon-save" ng-click="fnEditRes(activeDomain, activeResId, editor.data)">Edit</span>
-    </button>
-    <button class="btn btn-danger" ng-click="fnDelRes(activeDomain, activeResId)">
-        <span class="glyphicon glyphicon-trash">delete</span>
-    </button>
-    <button class="btn btn-primary" ng-click="changeOptions()"><i class="fa fa-check-circle"></i> change options
-    </button>
 </div>
 
 

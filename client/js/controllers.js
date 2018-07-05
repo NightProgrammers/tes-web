@@ -13,17 +13,22 @@ app.controller('ResList', ['$scope', 'ResFactory',
             $scope.editor.data = angular.copy($scope.resList[id]);
         };
         $scope.fnUpdateResList = function (domain) {
-            console.log('$scope.fnSetDomain');
             ResFactory.getResList(domain).success(function (data) {
                 $scope.resList = {};
+
                 if ($scope.searchPattern) {
-                    for (var resId in data.data) {
-                        if (JSON.stringify(data.data[resId]).search($scope.searchPattern) != -1) {
-                            $scope.resList[resId] =  data.data[resId]
+                    let searchPatterns = $scope.searchPattern.trim().split(/\s+/);
+
+                    for (let resId in data.data) {
+                        let resDataStr = JSON.stringify(data.data[resId]);
+                        let matched = searchPatterns.every(p =>
+                            (resId.search(p) != -1 || resDataStr.search(p) != -1)
+                        );
+                        if (matched) {
+                            $scope.resList[resId] = data.data[resId];
                         }
                     }
-
-                }  else {
+                } else {
                     $scope.resList = data.data;
                 }
 
@@ -32,7 +37,7 @@ app.controller('ResList', ['$scope', 'ResFactory',
         $scope.fnDelRes = function (domain, id) {
             ResFactory.delRes(domain, id).success(function () {
                 $scope.fnUpdateResList(domain);
-                $scope.editor.data = {"提示": "请选择资源"};
+                $scope.editor.data = {"tip": "please select a resource"};
             }).error(function (error) {
                 $scope.editor.data = error.error.message;
             });
@@ -47,7 +52,7 @@ app.controller('ResList', ['$scope', 'ResFactory',
         };
         $scope.changeOptions = function () {
             // 'form', 'text', 'tree', 'view'
-            $scope.editor.options.mode = $scope.editor.options.mode == 'tree' ? 'code' : 'tree';
+            $scope.editor.options.mode = $scope.editor.options.mode === 'tree' ? 'code' : 'tree';
         };
         $scope.searchPattern = null;
         $scope.editor = {
@@ -71,7 +76,7 @@ app.controller('ResAdd', ['$scope', 'ResFactory',
 
         $scope.fnAddRes = function (domain) {
             ResFactory.addRes(domain, $scope.editor.data).success(function (data) {
-                var newId = data.data;
+                let newId = data.data;
                 alert('添加成功:' + newId);
             }).error(function (err) {
                 alert('Error:' + err.error.message);
@@ -82,7 +87,7 @@ app.controller('ResAdd', ['$scope', 'ResFactory',
             $scope.editor.data = {};
         };
         $scope.changeOptions = function () {
-            $scope.editor.options.mode = $scope.editor.options.mode == 'tree' ? 'view' : 'tree';
+            $scope.editor.options.mode = $scope.editor.options.mode === 'tree' ? 'view' : 'tree';
         };
 
         $scope.editor = {
@@ -128,7 +133,7 @@ app.controller('ResAll', ['$scope', 'ResFactory',
         };
 
         $scope.changeOptions = function () {
-            $scope.editor.options.mode = $scope.editor.options.mode == 'view' ? 'code' : 'view';
+            $scope.editor.options.mode = $scope.editor.options.mode === 'view' ? 'code' : 'view';
         };
         $scope.editor = {
             options: {

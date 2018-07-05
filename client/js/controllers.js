@@ -50,14 +50,15 @@ app.controller('ResList', ['$scope', 'ResFactory',
                 alert(e.error.message)
             });
         };
-        $scope.changeOptions = function () {
+        $scope.fnUpdateEditorMode = function () {
             // 'form', 'text', 'tree', 'view'
-            $scope.editor.options.mode = $scope.editor.options.mode === 'tree' ? 'code' : 'tree';
+            $scope.editor.options.mode = $scope.editor_mode;
         };
         $scope.searchPattern = null;
+        $scope.editor_mode = 'tree';
         $scope.editor = {
             options: {
-                mode: 'tree'
+                mode: $scope.editor_mode
             },
             data: {"提示": "请选择资源"}
         };
@@ -86,10 +87,12 @@ app.controller('ResAdd', ['$scope', 'ResFactory',
         $scope.clearData = function () {
             $scope.editor.data = {};
         };
-        $scope.changeOptions = function () {
-            $scope.editor.options.mode = $scope.editor.options.mode === 'tree' ? 'view' : 'tree';
+        $scope.fnUpdateEditorMode = function () {
+            // 'form', 'text', 'tree', 'view'
+            $scope.editor.options.mode = $scope.editor_mode;
         };
 
+        $scope.editor_mode = 'tree';
         $scope.editor = {
             options: {
                 mode: 'tree'
@@ -132,9 +135,12 @@ app.controller('ResAll', ['$scope', 'ResFactory',
             });
         };
 
-        $scope.changeOptions = function () {
-            $scope.editor.options.mode = $scope.editor.options.mode === 'view' ? 'code' : 'view';
+        $scope.fnUpdateEditorMode = function () {
+            // 'form', 'text', 'tree', 'view'
+            $scope.editor.options.mode = $scope.editor_mode;
         };
+
+        $scope.editor_mode = 'tree';
         $scope.editor = {
             options: {
                 mode: 'tree'

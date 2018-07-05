@@ -1,26 +1,52 @@
-<div ng-controller="ResAdd">
-    <div class="form-group">
-        <div class="input-group">
-            <div class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></div>
-            <select class="form-control"
-                    ng-model="activeDomain"
-                    ng-options="domain for domain in domainList">
-            </select>
+<div class="row" ng-controller="ResAdd">
+    <div class="col-sm-4">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-globe"></span></div>
+                <select class="form-control"
+                        ng-model="activeDomain"
+                        ng-options="domain for domain in domainList"
+                        title="Select Domain in list...">
+                </select>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <label>详细配置</label>
-        <div class="editor" ng-jsoneditor="onLoad" ng-model="editor.data" options="editor.options"></div>
-    </div>
-    <button class="btn btn-info" ng-click="fnAddRes(activeDomain)">
-        <span class="glyphicon glyphicon-send">Add</span>
-    </button>
-    <button class="btn btn-danger" ng-click="editor.data = {}">
-        <span class="glyphicon glyphicon-trash">cancel</span>
-    </button>
-    <button class="btn btn-primary" ng-click="changeOptions()"><i class="fa fa-check-circle"></i> change options
-    </button>
-</div>
+    <div class="col-sm-8">
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-adjust"></span></div>
+                <div class="input-group form-control">
+                    <label class="radio-inline">
+                        <input type="radio" class="radio" name="edit_mode" id="mode_text" value="text"
+                               ng-model="editor_mode" ng-change="fnUpdateEditorMode()">
+                        <span class="glyphicon glyphicon-console"></span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" class="radio" name="edit_mode" id="mode_tree" value="tree"
+                               ng-model="editor_mode" ng-change="fnUpdateEditorMode()">
+                        <span class="glyphicon glyphicon-th-list"></span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" class="radio" name="edit_mode" id="mode_view" value="view"
+                               ng-model="editor_mode" ng-change="fnUpdateEditorMode()">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                    </label>
+                </div>
+                <div class="input-group-btn">
+                    <button class="btn btn-success" ng-click="fnAddRes(activeDomain)">
+                        <span class="glyphicon glyphicon-ok-sign"></span>
+                    </button>
 
+                    <button class="btn btn-default" ng-click="editor.data = {}">
+                        <span class="glyphicon glyphicon-retweet"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="editor" ng-jsoneditor="onLoad" ng-model="editor.data" options="editor.options"></div>
+        </div>
+
+    </div>
+</div>
 
 

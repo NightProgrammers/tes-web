@@ -6,22 +6,41 @@
                 <select class="form-control"
                         ng-model="activeDomain"
                         ng-options="domain for domain in domainList"
-                        ng-change="fnSetDomain(activeDomain)">
+                        ng-change="fnSetDomain(activeDomain)"
+                        title="Select Domain in list...">
                 </select>
             </div>
             <div class="input-group">
                 <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
                 <input class="form-control"
                        ng-model="searchPattern"
-                       placeholder="Enter Patterns(supporting multiple patterns split with space)"
-                       ng-change="fnUpdateResList(activeDomain)"/>
+                       ng-change="fnUpdateResList(activeDomain)"
+                       placeholder="Enter Patterns(supporting multiple patterns split with space)..."/>
             </div>
-            <button class="btn btn-default" ng-click="changeOptions()"><span
-                    class="glyphicon glyphicon-blackboard">View</span></button>
         </div>
     </div>
     <div class="col-sm-8">
         <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-addon"><span class="glyphicon glyphicon-adjust"></span></div>
+                <div class="input-group form-control">
+                    <label class="radio-inline">
+                        <input type="radio" class="radio" name="edit_mode" id="mode_text" value="text"
+                               ng-model="editor_mode" ng-change="fnUpdateEditorMode()">
+                        <span class="glyphicon glyphicon-console"></span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" class="radio" name="edit_mode" id="mode_tree" value="tree"
+                               ng-model="editor_mode" ng-change="fnUpdateEditorMode()">
+                        <span class="glyphicon glyphicon-th-list"></span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" class="radio" name="edit_mode" id="mode_view" value="view"
+                               ng-model="editor_mode" ng-change="fnUpdateEditorMode()">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                    </label>
+                </div>
+            </div>
             <div class="editor" ng-jsoneditor="onLoad" ng-model="editor.data" options="editor.options"></div>
         </div>
     </div>

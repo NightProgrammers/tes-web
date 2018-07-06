@@ -145,7 +145,7 @@ module Tes
       res = db[res_id]
       state_set = lock ? :locked : :using
       case res[:status]
-        when RES_STATUS[:free]
+        when RES_STATUS[:free], nil
           res[:users] ||= []
           res[:users].push(user).uniq!
           res[:status] = RES_STATUS[state_set]
